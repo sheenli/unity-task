@@ -5,7 +5,7 @@ Simple task system
 
 ## How to use:
 
-``` 
+```c#
  public class LogTask : Task
  {
             private string msg;
