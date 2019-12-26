@@ -5,7 +5,7 @@ Simple task system
 
 ## How to use:
 
-``` 
+```c#
  public class LogTask : Task
  {
             private string msg;
@@ -30,7 +30,7 @@ Simple task system
 ```
 
 
-```
+```c#
 TaskList sequenceTask = new TaskList(TaskList.ActionsExecutionMode.RunInSequence);
             sequenceTask.AddTask(new LogTask("顺序测试1"));
             sequenceTask.AddTask(new LogTask("顺序测试2"));
