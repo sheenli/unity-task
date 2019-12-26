@@ -5,6 +5,22 @@ namespace YKFramework.Task
 {
     public class TaskList : Task
     {
+        public override float Progress
+        {
+            get
+            {
+                var cur = 0f;
+                for (int i = 0; i < actions.Count; i++)
+                {
+                    cur += actions[i].Progress;
+                }
+                return cur / (float)actions.Count;
+            }
+            protected set
+            {
+                
+            }
+        }
         public TaskList(ActionsExecutionMode executionMode)
         {
             this.executionMode = executionMode;
@@ -26,6 +42,7 @@ namespace YKFramework.Task
         {
             mCurIndex = 0;
             finishedIndeces.Clear();
+            Progress = 0;
         }
 
         protected override void OnUpdate()

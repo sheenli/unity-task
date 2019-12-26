@@ -8,6 +8,7 @@ namespace YKFramework.Task
 
     public abstract class Task
     {
+        public virtual float Progress { get; protected set; }
         private bool latch;
         protected string mErr = string.Empty;
         protected object mOwnerSystem;
@@ -23,14 +24,18 @@ namespace YKFramework.Task
 
         public void Execute(object owner,Action<bool> callback = null)
         {
-            
+            Progress = 0;
             if (!isRunning) MonoManager.current.StartCoroutine(Updater(owner,callback));
         }
 
         private IEnumerator Updater(object owner,Action<bool> callback)
         {
             while (Tick(owner) == Status.Running) yield return null;
-            if (callback != null) callback(status == Status.Success);
+           
+            if (callback != null)
+            {
+                callback(status == Status.Success);
+            }
         }
         
         
@@ -66,6 +71,7 @@ namespace YKFramework.Task
 
             latch = true;
             status = success ? Status.Success : Status.Failure;
+            Progress = status == Status.Success ? 1 : 0;
             OnStop();
         }
 

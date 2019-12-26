@@ -29,6 +29,7 @@ namespace YKFramework.Task.Example
             }
         }
 
+        private TaskList task;
         private void Awake()
         {
             TaskList sequenceTask = new TaskList(TaskList.ActionsExecutionMode.RunInSequence);
@@ -42,7 +43,7 @@ namespace YKFramework.Task.Example
             parallelTask.AddTask(new LogTask("并行任务测试3"));
             
 //            TaskList task = new TaskList(TaskList.ActionsExecutionMode.RunInSequence);//顺序执行
-            TaskList task = new TaskList(TaskList.ActionsExecutionMode.RunInParallel);//并行执行
+            task = new TaskList(TaskList.ActionsExecutionMode.RunInParallel);//并行执行
             task.AddTask(sequenceTask);
             task.AddTask(parallelTask);
             task.Execute(this, success =>
@@ -50,6 +51,11 @@ namespace YKFramework.Task.Example
                 Debug.Log("所有任务执行完毕"+success);
             });
             
+        }
+
+        private void Update()
+        {
+            Debug.Log("当前进度："+task.Progress);
         }
     }
 }
