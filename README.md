@@ -30,7 +30,7 @@ Simple task system
 ```
 
 
-``` 
+```
 TaskList sequenceTask = new TaskList(TaskList.ActionsExecutionMode.RunInSequence);
             sequenceTask.AddTask(new LogTask("顺序测试1"));
             sequenceTask.AddTask(new LogTask("顺序测试2"));
