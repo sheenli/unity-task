@@ -33,7 +33,12 @@ namespace YKFramework.Task.Example
         private void Awake()
         {
             TaskList sequenceTask = new TaskList(TaskList.ActionsExecutionMode.RunInSequence);
-            sequenceTask.AddTask(new LogTask("顺序测试1"));
+            var log1 = new LogTask("顺序测试1");
+            log1.onFinished = a =>
+            {
+                Debug.Log("子任务完成");
+            };
+            sequenceTask.AddTask(log1);
             sequenceTask.AddTask(new LogTask("顺序测试2"));
             sequenceTask.AddTask(new LogTask("顺序测试3"));
             

@@ -21,9 +21,11 @@ namespace YKFramework.Task
 
         public bool isRunning => status == Status.Running;
 
+        internal Action<bool> onFinished;
 
         public void Execute(object owner,Action<bool> callback = null)
         {
+            this.onFinished = callback;
             Progress = 0;
             if (!isRunning) MonoManager.current.StartCoroutine(Updater(owner,callback));
         }

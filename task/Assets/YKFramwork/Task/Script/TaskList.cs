@@ -85,10 +85,15 @@ namespace YKFramework.Task
                 {
                     mErr = actions[i].ErrInfo;
                     EndAction(false);
+                    actions[i].onFinished?.Invoke(false);
                     return;
                 }
 
-                if (status == Status.Success) finishedIndeces.Add(i);
+                if (status == Status.Success)
+                {
+                    finishedIndeces.Add(i);
+                    actions[i].onFinished?.Invoke(true);
+                }
             }
             if (finishedIndeces.Count == actions.Count) EndAction();
         }
@@ -103,6 +108,7 @@ namespace YKFramework.Task
                 if (status == Status.Failure)
                 {
                     EndAction(false);
+                    actions[i].onFinished?.Invoke(false);
                     return;
                 }
 
@@ -110,6 +116,10 @@ namespace YKFramework.Task
                 {
                     mCurIndex = i;
                     return;
+                }
+                else
+                {
+                    actions[i].onFinished?.Invoke(true);
                 }
             }
             EndAction();
